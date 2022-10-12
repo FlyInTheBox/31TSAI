@@ -40,6 +40,41 @@ if ($losowa <= 10) {
     <h4 style="text-align: center; color: deeppink">Trzecia dziesiątka.</h4>
     <?PHP
 }
+$miesiac=rand(1,15);
 ?>
+<hr style="margin: 0;">
+<h1 style="border: 4px solid lightblue; text-align: center">
+    <?PHP
+    echo $miesiac;
+    ?>
+</h1>
+<h3 style="border: 2px pink;border-bottom-style: dashed;border-top-style: dashed; text-align:center;font-style: italic">
+<?PHP
+switch ($miesiac) {
+    case 1:
+    case 2:
+    case 3:
+        echo "I kwartał";
+        break;
+    case 4:
+    case 5:
+    case 6:
+        echo "II kwartał";
+        break;
+    case 7:
+    case 8:
+    case 9:
+        echo "III kwartał";
+        break;
+    case 10:
+    case 11:
+    case 12:
+        echo "IV kwartał";
+        break;
+    default:
+        echo "Błędny numer miesiąca";
+}
+?>
+</h3>
 </body>
 </html>
