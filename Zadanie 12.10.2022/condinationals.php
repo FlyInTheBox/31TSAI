@@ -43,7 +43,7 @@ if ($losowa <= 10) {
 $miesiac=rand(1,15);
 ?>
 <hr style="margin: 0;">
-<h1 style="border: 4px solid lightblue; text-align: center">
+<h1 style="border: 4px dotted lightblue; text-align: center;">
     <?PHP
     echo $miesiac;
     ?>
