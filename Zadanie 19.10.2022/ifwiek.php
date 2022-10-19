@@ -33,6 +33,7 @@ $plusy = rand(0, 10);
 echo $plusy;
 ?>
 </pre>
+
 <pre>
 <?PHP
 switch ($plusy) {
