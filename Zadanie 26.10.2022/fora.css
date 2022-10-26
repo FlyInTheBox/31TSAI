@@ -1,0 +1,21 @@
+li {
+    margin-left: 40px;
+    list-style: upper-roman;
+}
+.td1 {
+    border: 1px dotted black;
+    padding: 10px;
+}
+table {
+    border-collapse: collapse;
+}
+.ld {
+    background-color: lightgray;
+    border: 1px solid gray;
+    padding: 10px;
+}
+.rd {
+    background-color: greenyellow;
+    border: 1px solid lawngreen;
+    padding: 10px;
+}
