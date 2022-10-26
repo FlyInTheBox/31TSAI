@@ -55,10 +55,11 @@
     <tr>
     <?PHP
     $d = 0;
-    while ($d<5) {
+    do {
         $d++;
         echo "<td class='rd'>To jest kolumna numer $d</td>";
     }
+    while ($d<5) ;
     ?>
     </tr>
 </table>
