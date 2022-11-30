@@ -85,5 +85,13 @@ rsort($numbers);
 print_r($numbers);
 ?>
 </pre>
+<br>
+<hr>
+<pre>
+    <?PHP
+    $tablica = array("Skazani na Shawshank" => "dramat","Nietykalni" => "biograficzny","Władca pierścieni: Powrót króla" => "fantasy","Pulp Fiction" => "gangserski","Siedem"=>"kryminał","Podziemny krąg"=>"thriller","Django"=>"western","Król lew"=>"animacja","Avengers: Wojna bez granic"=>"akcja","Dobry, zły i brzydki"=>"western");
+
+    ?>
+</pre>
 </body>
 </html>
