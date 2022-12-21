@@ -16,14 +16,15 @@
 
         th {
             background-color: burlywood;
-            border: 1px dotted black;
+            border: 1px dashed black;
             padding: 5px;
         }
 
         td {
-            border: 1px dotted black;
+            border: 1px dashed black;
             padding: 5px;
             text-align: center;
+            vertical-align: center;
         }
     </style>
 </head>
