@@ -31,10 +31,11 @@
         <legend>Roczniki</legend>
         <?PHP
         for ($i=2010;$i<=2025;$i++){
-            echo "<input type='radio' name='rok' id='$i' value='$i'>$i<br>";
+            echo "<label><input type='radio' name='rok' id='$i' value='$i'>$i</label><br>";
         }
         ?>
     </fieldset>
+    <br>
     <select>
     <?PHP
     $miesiace = array(
@@ -52,7 +53,12 @@
         12=>"Grudzień"
     );
     foreach ($miesiace as $key => $value) {
+        if ($key != date("m")) {
         echo '<option value="'.$value.'">'.$value.'</option>';
+        }
+        else {
+            echo '<option selected value="'.$value.'">'.$value.'</option>';
+        }
     }
     ?>
     </select>
