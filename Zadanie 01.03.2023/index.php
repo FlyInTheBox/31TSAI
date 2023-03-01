@@ -13,8 +13,10 @@
         <legend>Liczby</legend>
         <?PHP
         $arr = range(0, 100, 10);
+
         foreach ($arr as $value) {
-            echo '<label for="check"><input type="checkbox" name="check[]" value="' . $value . '" id="box' . $value . '">' . $value . '</label>';
+            $checked = (!empty($_POST['check']) && in_array($value, $_POST['check'])) ? 'checked':'';
+            echo '<label for="check"><input type="checkbox" name="check[]" value="' . $value . '" id="box' . $value . '" '.$checked.'>' . $value . '</label>';
         }
         echo '<br><button type="submit">Wyślij</button>';
         ?>
@@ -23,11 +25,9 @@
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($_POST['check'])) {
                 echo 'Nie wybrano żadnych liczb.';
-            } else {
-                echo 'Wybrano liczby: ';
-                foreach ($_POST['check'] as $value) {
-                    echo $value . ', ';
-                }
+            }
+            else {
+                echo 'Wybrano liczby: '.implode(', ',$_POST['check']).'.';
             }
         }
         ?>
