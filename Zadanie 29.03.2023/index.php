@@ -9,36 +9,82 @@
     <fieldset style="border: 1px solid darkgreen; background-color: lightgreen">
         <legend style="border:1px solid darkgreen;background-color: lightgreen">Formularz z walidacją</legend>
         <?php
+        $valid_input = true;
+        $valid_message = '';
+        $filename = 'ankieta.txt';
         $login = $email = $kto = $page = $miasto = '';
         $login_blad = $email_blad = $kto_blad = $page_blad = $miasto_blad = '';
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (empty($_POST['login'])) {
-                $login_blad = "Login jest wymagany!";
-            } else {
-                $login = $_POST['login'];
+
+
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            if (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
+                $email_blad = "Email jest nieprawidłowy!";
+                $valid_input = false;
             }
-            if (empty($_POST['email'])) {
-                $email_blad = "Email jest wymaganany";
-            } else {
-                $email = $_POST['email'];
+
+            $page = filter_var($_POST['page'], FILTER_SANITIZE_URL);
+            if (!filter_input(INPUT_POST, 'page', FILTER_VALIDATE_URL)) {
+                $page_blad = "Strona internetowa jest nieprawidłowa!";
+                $valid_input = false;
             }
+
+        }
+        if (empty($_POST['login'])) {
+            $login_blad = "Login jest wymagany!";
+            $valid_input = false;
+        } else {
+            $login = trim($_POST['login']);
+            $login = filter_var($login, FILTER_SANITIZE_STRING);
+            if (strstr($login, ' ')) {
+                $login_blad = "Login nie może zawierać spacji";
+                $valid_input = false;
+            }
+
+
+            /* if (empty($_POST['login'])) {
+                 $login_blad = "Login jest wymagany!";
+             } else {
+                 $login = $_POST['login'];
+             }
+             if (empty($_POST['email'])) {
+                 $email_blad = "Email jest wymaganany";
+             } else {
+                 $email =  $_POST['email'];
+             }
+             if (empty($_POST['page'])) {
+                 $page_blad = "Strona internetowa jest wymagana";
+             } else {
+                 $page = $_POST['page'];
+             }*/
             if (empty($_POST['gender'])) {
                 $kto_blad = "Wybierz jedną opcję";
+                $valid_input = false;
             } else {
                 $kto = $_POST['gender'];
+
             }
 
             if (empty($_POST['miasto'])) {
                 $miasto_blad = "Wybierz conajmniej jedno miasto";
+                $valid_input = false;
             } else {
                 $miasto = $_POST['miasto'];
             }
 
-            if (empty($_POST['page'])) {
-                $page_blad = "Strona internetowa jest wymagana";
-            } else {
-                $page = $_POST['page'];
+        if($valid_input) {
+            if (file_exists($filename)){
+                $myfile = fopen($filename, 'a');
             }
+            else {
+                $myfile = fopen($filename, 'w');
+            }
+            $mydata = $login . ' | ' . $email . ' | ' . $page . ' | ' . implode(',', $miasto) . ' | ' . implode('', $kto) . ' | ' . date('Y-m-d H:i:s') . "\n";
+            fwrite($myfile,$mydata);
+            fclose($myfile);
+            $valid_message = 'Dane z formularza zostały zapisane do pliku ' . $filename;
+        }
+
         }
 
         ?>
@@ -87,6 +133,11 @@
                value="unknown" <?php if ($kto && strstr(implode('', $kto), 'unknown')) echo 'checked'; ?>>
         <label for="unknown">nie chcę podawać</label><br><br>
         <button type="submit">Wyślij</button>
+        <?PHP
+        if ($valid_message != ''){
+            echo $valid_message;
+        }
+        ?>
     </fieldset>
 </form>
 </body>
