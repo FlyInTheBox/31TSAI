@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        table, tr ,td, th {
+        table, tr, td, th {
             border: 1px solid black;
             border-collapse: collapse;
             padding: 5px;
@@ -19,13 +19,27 @@
 <hr>
 <h1>Wyniki zapytania w akapitach:</h1>
 <?php
+$miesiace = array(
+    1=>"stycznia",
+    2=>"lutego",
+    3=>"marca",
+    4=>"kwietnia",
+    5=>"maja",
+    6=>"czerwca",
+    7=>"lipca",
+    8=>"sierpnia",
+    9=>"września",
+    10=>"października",
+    11=>"listopada",
+    12=>"grudnia"
+);
+
 $database = 'wylazowski';
 $servername = 'localhost';
 $username = 'Wylazowski';
 $password = 'tajnehaslo';
 $conn = mysqli_connect($servername, $username, $password, $database);
-if (!$conn)
-{
+if (!$conn) {
     die('Próba połączenia z bazą danych zakończyła się niepowodzeniem. Błąd: '
         . mysqli_connect_error());
 }
@@ -77,19 +91,13 @@ if (mysqli_num_rows($result) > 0) {
 <hr>
 <h1>Zadanie.5</h1>
 <?php
-if (!$conn)
-{
-    die('Próba połączenia z bazą danych zakończyła się niepowodzeniem. Błąd: '
-        . mysqli_connect_error());
-}
-
 $query = 'SELECT tytul, Nazwisko, Imie FROM ksiazki';
 
 $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        echo '<p>Ksiązka ' .'<em>' .$row['tytul'] . '</em>'
-            . ' została napisana przez ' . ' <b> ' . $row['Imie'] . ' ' . $row['Nazwisko'] . '</b>'. '.' . '</p>';
+        echo '<p>Ksiązka ' . '<em>' . $row['tytul'] . '</em>'
+            . ' została napisana przez ' . ' <b> ' . $row['Imie'] . ' ' . $row['Nazwisko'] . '</b>' . '.' . '</p>';
     }
 } else {
     echo 'brak danych';
@@ -111,12 +119,10 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo 'brak danych';
 }
-mysqli_close($conn)
 ?>
 <hr>
 <h1>Zadanie 3</h1>
 <?php
-$conn = mysqli_connect($servername, $username, $password, $database);
 $query = 'SELECT Sygnatura,Tytul,Imie,Nazwisko,Wydawnictwo,Rok_wyd,Cena FROM `ksiazki` WHERE (Wydawnictwo LIKE "PWN" or Wydawnictwo LIKE "HELION") AND Rok_wyd BETWEEN 1990 AND 2011 ORDER BY Rok_wyd;';
 $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
@@ -124,13 +130,31 @@ if (mysqli_num_rows($result) > 0) {
     echo '<tr><th>Sygnatura</th><th>Tytuł</th><th>Autor</th><th>Wydawnictwo</th><th>Rok wydania</th><th>Cena</th></tr>';
     while ($row = mysqli_fetch_assoc($result)) {
         $arr = explode('.', $row['Cena']);
-        echo '<tr><td>' . $row['Sygnatura'] . '</td><td>' . $row['Tytul'] . '</td><td>' . $row['Imie']. ' '. $row['Nazwisko'] . '</td><td>' . $row['Wydawnictwo'] . '</td><td>' . $row['Rok_wyd'] . '</td><td style="text-align: right">' . $arr[0] . ' zł '. $arr[1]. ' gr' . '</td></tr>';
+        echo '<tr><td>' . $row['Sygnatura'] . '</td><td>' . $row['Tytul'] . '</td><td>' . $row['Imie'] . ' ' . $row['Nazwisko'] . '</td><td>' . $row['Wydawnictwo'] . '</td><td>' . $row['Rok_wyd'] . '</td><td style="text-align: right">' . $arr[0] . ' zł ' . $arr[1] . ' gr' . '</td></tr>';
     }
     echo '</table>';
 } else {
     echo 'brak danych';
 }
-mysqli_close($conn)
+?>
+<hr>
+<h1>Zadanie 4</h1>
+<?php
+$query = 'SELECT Imie, Nazwisko,Data_zatrudnienia FROM pracownicy';
+$result = mysqli_query($conn, $query);
+if (mysqli_num_rows($result) > 0) {
+    echo '<table>';
+    echo '<tr><th>Imię </th><th>Nazwisko </th><th>Data zatrudnienia</th></tr>';
+    while ($row = mysqli_fetch_assoc($result)) {
+        $d = strtotime($row['Data_zatrudnienia']);
+        echo '<tr><td>' . $row['Imie'] . '</td><td>'
+            . $row['Nazwisko'] . '</td><td>'
+            . date('j ', $d). $miesiace[date('n', $d)] . date(' Y', $d) .' (data w bazie: ' . $row['Data_zatrudnienia'] . ')' . '</td>';
+    }
+    echo '</table>';
+} else {
+    echo 'brak danych';
+}
 ?>
 </body>
 </html>
