@@ -11,27 +11,20 @@
         table{
             border-collapse: collapse;
         }
-        tr{
+        tr,th,td{
             border: 1px solid black;
-
-
-        }
-        th{
-            border: 1px solid black;
-
-        }
-        td{
-            border: 1px solid black;
-
         }
     </style>
 </head>
 <body>
 
 <?php
-$conn = mysqli_connect('127.0.0.1', 'wilk', 'CTwwTdsQoP', 'wilk');
-if (!$conn)
-{
+$database = 'wylazowski';
+$servername = 'localhost';
+$username = 'Wylazowski';
+$password = 'tajnehaslo';
+$conn = mysqli_connect($servername, $username, $password, $database);
+if (!$conn) {
     die('Próba połączenia z bazą danych zakończyła się niepowodzeniem. Błąd: '
         . mysqli_connect_error());
 }
