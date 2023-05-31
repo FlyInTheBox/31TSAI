@@ -14,6 +14,9 @@
         tr,th,td{
             border: 1px solid black;
         }
+        td {
+            padding: 2px;
+        }
     </style>
 </head>
 <body>
@@ -30,17 +33,17 @@ if (!$conn) {
 }
 
 
-$query= 'SELECT Imie,Nazwisko,Data_zatrudnienia,Miasto,Wynagrodzenie FROM pracownicy WHERE Wynagrodzenie >2800  ORDER by Wynagrodzenie desc';
+$query= 'SELECT Imie,Nazwisko,Data_zatrudnienia,Miasto,Wynagrodzenie FROM pracownicy JOIN stanowiska ON pracownicy.Id_stanowisko=stanowiska.Id_stanowisko WHERE Wynagrodzenie >2000 AND Nazwa="Księgowy" ORDER by Wynagrodzenie desc';
 $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) > 0) {
     echo '<table>';
-    echo '<tr><th>Pracownik</th><th>Miasto</th><th>Data zatrudnienia</th><th>Wynagrodzenie</th><th>';
+    echo '<tr><th>Pracownik</th><th style="text-align: center">Miasto</th><th style="text-align: right">Data zatrudnienia</th><th style="text-align: right">Wynagrodzenie</th>';
     while ($row = mysqli_fetch_assoc($result)) {
-        echo '<tr><td>' . $row['Imie'] ." ". $row['Nazwisko']. '</td><td>'
+        echo '<tr><td>' . $row['Imie'] ." ". $row['Nazwisko']. '</td><td style="text-align: center">'
             . $row['Miasto'].'</td><td style="text-align: right">'
             . $row['Data_zatrudnienia'].'</td><td style="text-align: right">'
-            . $row['Wynagrodzenie'].'</td><td>'
-     ;
+            . $row['Wynagrodzenie'].'</td>'
+        ;
     }
     echo '</table>';
 } else {

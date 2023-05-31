@@ -18,24 +18,21 @@ if (!$conn) {
     die('Próba połączenia z bazą danych zakończyła się niepowodzeniem. Błąd: '
         . mysqli_connect_error());
 }
-$query= 'SELECT Sygnatura,Tytul,Imie,Nazwisko,Wydawnictwo,Objetosc_ks,Cena,Rok_wyd FROM ksiazki WHERE Objetosc_ks > 500';
+$query= 'SELECT Tytul,Imie,Nazwisko,Objetosc_ks,Wydawnictwo,Rok_Wyd,Sygnatura,Cena FROM ksiazki JOIN dzialy ON ksiazki.Id_dzial=dzialy.Id_dzial WHERE dzialy.Nazwa="Literatura" AND Objetosc_ks<300 ORDER BY Objetosc_ks';
 $result = mysqli_query($conn, $query);
-
-
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        echo '<p>Książka ' .   $row['Tytul'].','
-            .  'stron' .' '.  $row['Objetosc_ks'].','.' '
-            . ' autor ' . '<b>' .  $row['Imie'] . ' ' . $row['Nazwisko'] .' '. '</b>'.' ,'.' '
-            .'wydawnictwo'.' '.  $row['Wydawnictwo'].' '
-              .$row['Rok_wyd'] .','
-            .'sygnatura'.' '.   $row['Sygnatura'].','.
-            'kosztuje'. ' '. $row['Cena'].'zł'.
-            '</p>';
+        echo '<ul><li>' .   $row['Tytul'].','
+            . ' autor ' . '<b>' .  $row['Imie'] . ' ' . $row['Nazwisko'] . '</b>'.', '.' '
+            .$row['Objetosc_ks']. ' stron, '.'wydawnictwo '
+            .$row['Wydawnictwo'].' ('.$row['Rok_Wyd'].' r.)' .','
+            .' sygnatura'.'  = '.   $row['Sygnatura'].','.
+            ' cena:'. ' '. $row['Cena'].'zł'.
+            '</li>';
 
     }
+    echo '</ul>';
 }
-        mysqli_close($conn);
 
 ?>
 </body>
