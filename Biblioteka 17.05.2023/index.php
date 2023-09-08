@@ -9,7 +9,19 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+<?php
+$servername = 'localhost';
+$database = 'wylazowskiw';
+$username = 'wylazowskiw';
+$password = 'password1$';
+$conn = mysqli_connect($servername, $username, $password, $database);
+if (!$conn)
+{
+die('Próba połączenia z bazą danych zakończyła się niepowodzeniem. Błąd: '
+. mysqli_connect_error());
+}
 
+?>
 <nav>
     <a class="linki" href="?PAGE=mainpage">Strona główna</a>
     <a class="linki" href="?PAGE=db_conn">Test Połączenia</a>
@@ -30,6 +42,8 @@
         if (isset($_GET['PAGE'])) {
             if (file_exists('pages/' . $_GET['PAGE'] . '.php'))
                 include('pages/' . $_GET['PAGE'] . '.php');
+            else if (file_exists('include/' . $_GET['PAGE'] . '.php'))
+                include('include/' . $_GET['PAGE'] . '.php');
             else
                 echo '<h2>Ta strona nie istnieje</h2>';
         }
