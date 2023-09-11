@@ -29,7 +29,10 @@
 $conn = mysqli_connect('localhost','root','','baza_testowa');
 $query = "SELECT emp.id,
                      emp.first_name,
-                     emp.last_name
+                     emp.last_name,
+                     emp.comments,
+                     emp.userid,
+                     emp.start_date
                 FROM emp
                WHERE emp.last_name LIKE 'n%';";
 $result = mysqli_query($conn, $query);
@@ -41,6 +44,12 @@ while ($row = mysqli_fetch_array($result))
     printf("%s", $row['last_name']);
     echo '</td><td>';
     printf("%s", $row['first_name']);
+    echo '</td><td>';
+    printf("%s", $row['userid']);
+    echo '</td><td>';
+    printf("%s", $row['comments']);
+    echo '</td><td>';
+    printf("%s", $row['start_date']);
     echo '</td></tr>';
 }
 ?>
