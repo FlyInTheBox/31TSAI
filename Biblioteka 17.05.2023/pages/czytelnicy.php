@@ -5,6 +5,7 @@
 <?php
 $query = 'SELECT * FROM czytelnicy';
 $result = mysqli_query($conn, $query);
+echo '<p>Zawiera ' . mysqli_num_rows($result) . ' wierszy</p>';
 if (mysqli_num_rows($result) > 0) {
     echo '<table>';
     echo '<tr><th>Numer czytelnika</th><th>Imię i nazwisko</th><th>Data_ur</th><th>Ulica</th><th>Kod</th><th>Miasto</th><th>Data_zapisania</th></tr>';

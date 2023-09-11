@@ -43,3 +43,6 @@ tr, td, th {
     padding: 3px;
 }
 table {border-collapse: collapse}
+.add {
+    text-decoration: none;
+}
