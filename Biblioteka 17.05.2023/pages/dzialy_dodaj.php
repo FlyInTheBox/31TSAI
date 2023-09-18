@@ -3,10 +3,15 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") // Zapisz dane z formularza do bazy [INSERT]
 {
-    $Id_dzial = $_POST['Id_dzial'];
     $Nazwa = $_POST['Nazwa'];
-    $query = "INSERT INTO dzialy (Id_dzial, Nazwa) values ('".$Nazwa."')";
+    $query = "INSERT INTO dzialy (Nazwa) values ('".$Nazwa."')";
     $result = mysqli_query($conn, $query);
+    if ($result) {
+        echo "Poprawnie dodano rekord do bazy";
+        echo '<br><a href="?PAGE=dzialy">Powrót</a>';
+    } else {
+        echo "Błąd dodawania do bazy";
+    }
 
 } else {
     echo '<form action="?PAGE=dzialy_dodaj" method="post">
