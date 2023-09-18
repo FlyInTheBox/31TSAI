@@ -13,7 +13,7 @@
 </head>
 <body>
 <h2 align="center">Baza danych Wylazowski, Klasa 5D2</h2>
-<h3 align="center">Tu wstawiamy nasz kod</h3>
+<h3 align="center">Tabela emp</h3>
 
 <table cellspacing="0" cellpadding="0" border="1" style="width: 90%;" align="center">
 <tr bgcolor="#A000FF">
@@ -26,7 +26,22 @@
 </tr>
 
 <?php
-$conn = mysqli_connect('localhost','root','','baza_testowa');
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'baza_testowa';
+ini_set('display_errors', '0');
+$conn = mysqli_connect($host,$username,$password,$database);
+$conn_err = mysqli_connect_errno();
+if ($conn_err) {
+    switch ($conn_err){
+        case 1049:
+            $kom = "Nieprawidłowa nazwa bazy danych (".$database.")";
+            break;
+
+    }
+}
+
 $query = "SELECT emp.id,
                      emp.first_name,
                      emp.last_name,
