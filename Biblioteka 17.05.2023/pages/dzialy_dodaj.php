@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // Zapisz dane z formularza do bazy [I
     $result = mysqli_query($conn, $query);
     if ($result) {
         echo "Poprawnie dodano rekord do bazy";
+        echo '<br><a href="?PAGE=dzialy">Powrót</a>';
     } else {
         echo "Błąd dodawania do bazy";
     }

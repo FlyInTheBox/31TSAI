@@ -3,7 +3,7 @@
 
 
 <?php
-$query = 'SELECT * FROM pracownicy JOIN stanowiska ON pracownicy.Id_stanowisko = stanowiska.Id_stanowisko';
+$query = 'SELECT * FROM pracownicy JOIN stanowiska ON pracownicy.Id_stanowisko = stanowiska.Id_stanowisko order by Id_pracownika';
 $result = mysqli_query($conn, $query);
 echo '<p>Zawiera ' . mysqli_num_rows($result) . ' wierszy</p>';
 if (mysqli_num_rows($result) > 0) {
