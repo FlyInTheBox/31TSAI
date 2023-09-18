@@ -39,15 +39,14 @@
             exit; 
         }
 
-        $zapytanie = "SELECT emp.id, 
-                             emp.first_name, 
-                             emp.last_name,
-                             emp.userid,
-                             emp.comments,
-                             emp.start_date
+        $zapytanie = "SELECT emp.id as ID, 
+                             emp.first_name as imie, 
+                             emp.last_name as nazwisko,
+                             emp.userid as uzytkownik,
+                             emp.comments as komentarz,
+                             emp.start_date as data_rozpoczecia
                         FROM emp
-                       WHERE emp.last_name LIKE 'n%';";        
-         $wynik = mysqli_query($id_conn, $zapytanie);
+                       WHERE emp.last_name LIKE 'n%';";
 
         $wynik = mysqli_query($id_conn, $zapytanie); 
         $errno = mysqli_errno($id_conn);
@@ -84,17 +83,20 @@
         </tr>
    <?php
             while ($row = mysqli_fetch_array($wynik))     #row-zmienna 
-            { 
-    ?> 
-            <tr height = "20">
-  		 <td> <?php printf("%d", $row['id']);    	 ?> </td>
-	 	 <td> <?php printf("%s", $row['last_name']);     ?> </td>
-    		 <td> <?php printf("%s", $row['first_name']);    ?> </td>
-		 <td> <?php printf("%s", $row['userid']);        ?> </td>
-         	 <td> <?php printf("%s", $row['comments']);      ?> </td>
-	         <td> <?php printf("%s", $row['start_date']);    ?> </td>
-	    </tr>    
-        <?php
+            {
+                echo '<tr><td>';
+                printf("%d", $row['ID']);
+                echo '</td><td>';
+                printf("%s", $row['nazwisko']);
+                echo '</td><td>';
+                printf("%s", $row['imie']);
+                echo '</td><td>';
+                printf("%s", $row['uzytkownik']);
+                echo '</td><td>';
+                printf("%s", $row['komentarz']);
+                echo '</td><td>';
+                printf("%s", $row['data_rozpoczecia']);
+                echo '</td></tr>';
             }
             mysqli_free_result($wynik);  #zwalnia pamięć zarezerwowaną na tablicę $wynik
         ?>
