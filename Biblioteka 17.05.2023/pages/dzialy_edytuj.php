@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // Zapisz dane z formularza do bazy [I
     $result = mysqli_query($conn, $query);
     if ($result) {
         echo "Poprawnie zedytowano rekord";
+        echo '<br><a href="?PAGE=dzialy">Powrót</a>';
     } else {
         echo "Błąd edycji";
     }
