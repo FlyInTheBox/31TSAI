@@ -25,7 +25,8 @@ $zapytanie = "SELECT ord.id,
                        FROM ord join customer on customer.id=ord.customer_id
                         join emp on ord.sales_rep_id=emp.id
                         join item on ord.id = item.ord_id 
-                        join product on product.id = item.product_id WHERE ord.id >= 100;";
+                        join product on product.id = item.product_id
+                        WHERE ord.id >= 100;";
 $wynik = mysqli_query($id_conn, $zapytanie);
 ?>
 <table cellspacing="0" cellpadding="0" border="1" style="width: 90%;" align="center">
