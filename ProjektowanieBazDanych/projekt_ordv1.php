@@ -13,19 +13,24 @@
 $id_conn = mysqli_connect('localhost', 'root', '', 'baza_testowa');
 $zapytanie = "SELECT ord.id,
                             customer.name,
-                            ord.date_ordered,
-                            ord.date_shipped,
-                            emp.first_name,
-                            emp.last_name,
+                            DATE_FORMAT(ord.date_ordered,'%Y-%m-%d') as date_ordered,
+                            DATE_FORMAT(ord.date_shipped,'%Y-%m-%d') as date_shipped,
+                            CONCAT(emp.first_name,' ',emp.last_name) as sprzedawca,
                             ord.total,
                             ord.payment_type,
-                            ord.order_filled
-                       FROM ord join customer on customer.id=ord.customer_id join emp on ord.sales_rep_id=emp.id WHERE ord.id >= 100;";
+                            ord.order_filled,
+                            product.name as nazwaProduktu,
+                            item.price,
+                            item.quantity
+                       FROM ord join customer on customer.id=ord.customer_id
+                        join emp on ord.sales_rep_id=emp.id
+                        join item on ord.id = item.ord_id 
+                        join product on product.id = item.product_id WHERE ord.id >= 100;";
 $wynik = mysqli_query($id_conn, $zapytanie);
 ?>
 <table cellspacing="0" cellpadding="0" border="1" style="width: 90%;" align="center">
     <tbody align="center">
-    <tr bgcolor="grey">
+    <tr bgcolor="#A000FF">
         <td>ID</td>
         <td>Nazwa Klienta</td>
         <td>Data zamówienia</td>
@@ -34,10 +39,12 @@ $wynik = mysqli_query($id_conn, $zapytanie);
         <td>Wartość</td>
         <td>Typ płatności</td>
         <td>Status</td>
+        <td>Nazwa produktu</td>
+        <td>Cena</td>
+        <td>Ilość</td>
     </tr>
     <?php
-    while ($row = mysqli_fetch_array($wynik))
-    {
+    while ($row = mysqli_fetch_array($wynik)) {
         echo '<tr><td>';
         printf("%d", $row['id']);
         echo '</td><td>';
@@ -47,13 +54,19 @@ $wynik = mysqli_query($id_conn, $zapytanie);
         echo '</td><td>';
         printf("%s", $row['date_shipped']);
         echo '</td><td>';
-        printf("%s", $row['first_name']." ".$row['last_name']);
+        printf("%s", $row['sprzedawca']);
         echo '</td><td>';
         printf("%s", $row['total']);
         echo '</td><td>';
         printf("%s", $row['payment_type']);
         echo '</td><td>';
         printf("%s", $row['order_filled']);
+        echo '</td><td>';
+        printf("%s", $row['nazwaProduktu']);
+        echo '</td><td>';
+        printf("%s", $row['price']);
+        echo '</td><td>';
+        printf("%s", $row['quantity']);
         echo '</td></tr>';
     }
     ?>
