@@ -36,7 +36,7 @@
 
       <table cellspacing="0" cellpadding="0" border="0" style="width: 26%;" align="Left">
       <tbody align="Left">
- 	<form action='_MN_ins_prac.php' method='post'>
+ 	<form action='ins_prac.php' method='post'>
       	    <tr><td width="160">Nazwisko:</td><td><input type='text' name='nazwisko' ></td></tr>
 	    <tr><td>Imię:       </td><td><input type='text' name='imie'     ></td></tr>
 	    <tr><td>Użytkownik: </td><td><input type='text' name='userid'   ></td></tr>
