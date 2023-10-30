@@ -41,7 +41,7 @@
 	    <tr><td>Imię:       </td><td><input type='text' name='imie'     ></td></tr>
 	    <tr><td>Użytkownik: </td><td><input type='text' name='userid'   ></td></tr>
 	    <tr><td>Stanowisko: </td><td>
-       
+
          		<select id="Stanowiska" name="title">
 			    <?php $tit = '';
 			         $w_tit = mysqli_fetch_array($wyn_tit);

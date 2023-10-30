@@ -98,7 +98,7 @@ if (!mysqli_query($id_conn, $sql_ins))
         echo '<br>' . substr($depts, 6);
     }
 
-    $sql_mgr = "SELECT id, last_name FROM emp";
+    $sql_mgr = "SELECT DISTINCT szef.id, szef.last_name FROM emp AS prac LEFT OUTER JOIN emp AS szef ON prac.manager_id = szef.id";
     $wyn_mgr = mysqli_query($id_conn, $sql_mgr);
     if (!$wyn_mgr || mysqli_error($id_conn)) {
         echo "Błąd w zapytaniu o departamenty: " . $baza . '(' . mysqli_error($id_conn) . ')';
