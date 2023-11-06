@@ -30,7 +30,14 @@
 	    mysqli_close($id_conn);
             exit;
           }
-
+      $sql_dept = "SELECT dept.id, dept.name, region.name AS region  FROM dept JOIN region ON dept.region_id = region.id;";
+      $wyn_dept = mysqli_query($id_conn, $sql_dept);
+      if (mysqli_errno($id_conn))
+      {
+          echo "Błąd w zapytania o departament: " . $baza . ' (' . mysqli_error($id_conn) . ')';
+          mysqli_close($id_conn);
+          exit;
+      }
        ?>
 
 
@@ -59,7 +66,23 @@
 			    ?> 
 		       </select> 
 									     </td></tr> 
- 	    <tr><td>Departament:</td><td><input type='text' name='dept_id'  ></td></tr>
+ 	    <tr><td>Departament:</td><td>
+                <select id="Departament" name="dept_id">
+                    <?php $dept = '';
+                    $w_dept = mysqli_fetch_array($wyn_dept);
+                    $deptle = $w_dept['id'] + '|' + $w_dept['name'] + '|' + $w_dept['region'];
+                    ?>
+                    <option value=<?php printf("%s", "'" . $deptle . "'"); ?> selected><?php printf("%s", $deptle); ?></option>
+                    <?php
+                    while ($w_dept = mysqli_fetch_array($wyn_dept))
+                    {
+                        $deptle = $w_dept['id'];
+                        ?>
+                        <option value=<?php printf("%s", "'" . $deptle . "'"); ?>><?php printf("%s", $deptle); ?></option>
+                        <?php
+                    }
+                    ?>
+                </select></td></tr>
 	    <tr><td>Zarobki:    </td><td><input type='text' name='salary'   ></td></tr> 
 	    <tr><td>Data:       </td><td><input type='text' name='start_dt' ></td></tr> 
 	    <tr><td>ID managera:</td><td><input type='text' name='man_id'   ></td></tr>
