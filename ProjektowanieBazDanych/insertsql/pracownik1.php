@@ -38,6 +38,15 @@
           mysqli_close($id_conn);
           exit;
       }
+       
+       $sql_mid = "SELECT szef.id, szef.last_name FROM emp AS szef INNER JOIN emp AS prac ON szef.id = prac.manager_id;";
+      $wyn_mid = mysqli_query($id_conn, $sql_mid);
+      if (mysqli_errno($id_conn))
+      {
+          echo "Błąd w zapytania o managera: " . $baza . ' (' . mysqli_error($id_conn) . ')';
+          mysqli_close($id_conn);
+          exit;
+      }
        ?>
 
 
@@ -70,7 +79,7 @@
                 <select id="Departament" name="dept_id">
                     <?php $dept = '';
                     $w_dept = mysqli_fetch_array($wyn_dept);
-                    $deptle = $w_dept['id'] + '|' + $w_dept['name'] + '|' + $w_dept['region'];
+                    $deptle = $w_dept['id'] . '|' . $w_dept['name'] . '|' . $w_dept['region'];
                     ?>
                     <option value=<?php printf("%s", "'" . $deptle . "'"); ?> selected><?php printf("%s", $deptle); ?></option>
                     <?php
@@ -84,8 +93,25 @@
                     ?>
                 </select></td></tr>
 	    <tr><td>Zarobki:    </td><td><input type='text' name='salary'   ></td></tr> 
-	    <tr><td>Data:       </td><td><input type='text' name='start_dt' ></td></tr> 
-	    <tr><td>ID managera:</td><td><input type='text' name='man_id'   ></td></tr>
+	    <tr><td>Data:       </td><td><input type='date' name='start_dt' ></td></tr> 
+	    <tr><td>ID managera:</td><td><select id="Manager" name="man_id">
+        <?php $mid = '';
+			         $w_mid = mysqli_fetch_array($wyn_mid);
+			         $midle = $w_mid['id'];
+                     $midle .= ' | ' . $w_mid['last_name'];
+			    ?>
+			         <option value=<?php printf("%s", "'" . $midle . "'"); ?> selected><?php printf("%s", $midle); ?></option>
+			    <?php
+			         while ($w_mid = mysqli_fetch_array($wyn_mid))   
+			         {  
+				     $midle = $w_mid['name']; 
+                     $midle .= ' | ' . $w_mid['last_name'];
+			    ?>  
+			             <option value=<?php printf("%s", "'" . $midle . "'"); ?>><?php printf("%s", $midle); ?></option>
+			    <?php
+			         }    
+			    ?> 
+		       </select> </tr>
  	    <tr><td>Uwagi:      </td><td><input type='text' name='uwagi'    ></td></tr>
 	    <tr><td><p><input type='submit' value='Wyślij'></td></tr>
 	</form>
