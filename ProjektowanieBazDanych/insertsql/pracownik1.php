@@ -53,9 +53,9 @@
       <table cellspacing="0" cellpadding="0" border="0" style="width: 26%;" align="Left">
       <tbody align="Left">
  	<form action='ins_prac.php' method='post'>
-      	    <tr><td width="160">Nazwisko:</td><td><input type='text' name='nazwisko' ></td></tr>
-	    <tr><td>Imię:       </td><td><input type='text' name='imie'     ></td></tr>
-	    <tr><td>Użytkownik: </td><td><input type='text' name='userid'   ></td></tr>
+      	    <tr><td width="160">Nazwisko:</td><td><input type='text' id="lastname" name='nazwisko' onchange="usernameR()"></td></tr>
+	    <tr><td>Imię:       </td><td><input onchange="usernameR()" type='text' id="firstname" name='imie'     ></td></tr>
+	    <tr><td>Użytkownik: </td><td><input type='text' name='userid' id="userid"></td></tr>
 	    <tr><td>Stanowisko: </td><td>
 
          		<select id="Stanowiska" name="title">
@@ -79,15 +79,16 @@
                 <select id="Departament" name="dept_id">
                     <?php $dept = '';
                     $w_dept = mysqli_fetch_array($wyn_dept);
-                    $deptle = $w_dept['id'] . '|' . $w_dept['name'] . '|' . $w_dept['region'];
+                    $deptle1 = $w_dept['id'];
                     ?>
                     <option value=<?php printf("%s", "'" . $deptle . "'"); ?> selected><?php printf("%s", $deptle); ?></option>
                     <?php
                     while ($w_dept = mysqli_fetch_array($wyn_dept))
                     {
+                        $deptle1 = $w_dept['id'];
                         $deptle = $w_dept['id'] . '|' . $w_dept['name'] . '|' . $w_dept['region'];
                         ?>
-                        <option value=<?php printf("%s", "'" . $deptle . "'"); ?>><?php printf("%s", $deptle); ?></option>
+                        <option value=<?php printf("%s", "'" . $deptle1 . "'"); ?>><?php printf("%s", $deptle); ?></option>
                         <?php
                     }
                     ?>
@@ -97,15 +98,16 @@
 	    <tr><td>ID managera:</td><td><select id="Manager" name="man_id">
         <?php $mid = '';
 			         $w_mid = mysqli_fetch_array($wyn_mid);
-			         $midle = $w_mid['id'] . ' | ' . $w_mid['last_name'];
+			         $midle1 = $w_mid['id'];
 			    ?>
 			         <option value=<?php printf("%s", "'" . $midle . "'"); ?> selected><?php printf("%s", $midle); ?></option>
 			    <?php
 			         while ($w_mid = mysqli_fetch_array($wyn_mid))   
 			         {
+                         $midle1 = $w_mid['id'];
                          $midle = $w_mid['id'] . ' | ' . $w_mid['last_name'];
 			    ?>  
-			             <option value=<?php printf("%s", "'" . $midle . "'"); ?>><?php printf("%s", $midle); ?></option>
+			             <option value=<?php printf("%s", "'" . $midle1 . "'"); ?>><?php printf("%s", $midle); ?></option>
 			    <?php
 			         }    
 			    ?> 
@@ -114,6 +116,14 @@
 	    <tr><td><p><input type='submit' value='Wyślij'></td></tr>
 	</form>
       </tbody>
-      </table>  
+      </table>
+      <script>
+          function usernameR() {
+            let firstname = document.getElementById('firstname').value;
+            let lastname = document.getElementById('lastname').value;
+            let output = firstname.substring(0,1) + lastname.substring(0,6);
+            document.getElementById('userid').value = output.toLowerCase();
+          }
+      </script>
     </body>
 </html>
