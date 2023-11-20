@@ -39,7 +39,7 @@
           exit;
       }
        
-       $sql_mid = "SELECT szef.id, szef.last_name FROM emp AS szef INNER JOIN emp AS prac ON szef.id = prac.manager_id;";
+       $sql_mid = "SELECT DISTINCT szef.id, szef.last_name FROM emp AS szef INNER JOIN emp AS prac ON szef.id = prac.manager_id;";
       $wyn_mid = mysqli_query($id_conn, $sql_mid);
       if (mysqli_errno($id_conn))
       {
@@ -85,7 +85,7 @@
                     <?php
                     while ($w_dept = mysqli_fetch_array($wyn_dept))
                     {
-                        $deptle = $w_dept['id'];
+                        $deptle = $w_dept['id'] . '|' . $w_dept['name'] . '|' . $w_dept['region'];
                         ?>
                         <option value=<?php printf("%s", "'" . $deptle . "'"); ?>><?php printf("%s", $deptle); ?></option>
                         <?php
@@ -97,15 +97,13 @@
 	    <tr><td>ID managera:</td><td><select id="Manager" name="man_id">
         <?php $mid = '';
 			         $w_mid = mysqli_fetch_array($wyn_mid);
-			         $midle = $w_mid['id'];
-                     $midle .= ' | ' . $w_mid['last_name'];
+			         $midle = $w_mid['id'] . ' | ' . $w_mid['last_name'];
 			    ?>
 			         <option value=<?php printf("%s", "'" . $midle . "'"); ?> selected><?php printf("%s", $midle); ?></option>
 			    <?php
 			         while ($w_mid = mysqli_fetch_array($wyn_mid))   
-			         {  
-				     $midle = $w_mid['name']; 
-                     $midle .= ' | ' . $w_mid['last_name'];
+			         {
+                         $midle = $w_mid['id'] . ' | ' . $w_mid['last_name'];
 			    ?>  
 			             <option value=<?php printf("%s", "'" . $midle . "'"); ?>><?php printf("%s", $midle); ?></option>
 			    <?php
