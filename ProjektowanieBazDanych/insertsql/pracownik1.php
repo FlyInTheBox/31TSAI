@@ -86,7 +86,7 @@
                     while ($w_dept = mysqli_fetch_array($wyn_dept))
                     {
                         $deptle1 = $w_dept['id'];
-                        $deptle = $w_dept['id'] . '|' . $w_dept['name'] . '|' . $w_dept['region'];
+                        $deptle = $w_dept['id'] . ' | ' . $w_dept['name'] . ' | ' . $w_dept['region'];
                         ?>
                         <option value=<?php printf("%s", "'" . $deptle1 . "'"); ?>><?php printf("%s", $deptle); ?></option>
                         <?php
