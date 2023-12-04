@@ -1,0 +1,10 @@
+BAZA Z TABELAMI nauczyciele i przedmioty DO WIELU 
+1. ZBUDOWAĆ BAZĘ, TABELE (min po 10 pól NAUCZYCIELE, PRZEDMIOTY, ŁĄCZĄCA Z DATAMI NAUCZANIA),  
+2. MA BYĆ SŁOWNIK NAZW PRZEMIOTÓW
+3. WPROWADZIĆ DANE (min po 10 rek)
+4. ZROBIĆ  SELECT : KTO PROWADZI DANY PRZEDMIOT I W JAKIM CZASIE
+SELECT 	nauczyciele.imie, nauczyciele.nazwisko, przedmioty.nazwa 
+FROM 	nauczyciele
+	JOIN nauczyciele_przedmioty ON nauczyciele.id_nauczyciel = nauczyciele_przedmioty.nauczyciel_id
+	JOIN przedmioty ON przedmioty.id_przedmiotu = nauczyciele_przedmioty.przedmiot_id;
+5. WYŚWIETLIĆ NA STRONIE ZA POMOCA mysqli

@@ -51,7 +51,7 @@ $sql_ins = "INSERT INTO emp (id, first_name, last_name, userid, title, dept_id,
 		   ";
 if (!mysqli_query($id_conn, $sql_ins))
 {
-    echo '<br>Błąd zapisu do bazy:' . mysqli_error($id_conn) . '<br><br>';
+    echo '<br><br>';
     $sql_tit = "SELECT name FROM title;";
     $wyn_tit = mysqli_query($id_conn, $sql_tit);
     if (mysqli_error($id_conn)) {
